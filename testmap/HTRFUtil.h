@@ -89,6 +89,7 @@ class HTRFMap
 {
 private:
     table t;
+    hrir empty;
 public:
     void insert(float azimuth, float elevation, std::vector<float> && hrir)
     {
@@ -98,6 +99,19 @@ public:
     size_t size()
     {
         return t.size();
+    }
+    
+    const hrir& operator()(float azimuth, float elevation)
+    {
+        auto it = t.find(orientation(azimuth,elevation));
+        if (it != t.end())
+        {
+            return it->second; // return a const reference so the caller sees changes.
+        }
+        else
+        {
+            return empty; // returning an empty hrir.
+        }
     }
     
 };
