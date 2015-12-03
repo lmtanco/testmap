@@ -6,6 +6,8 @@
 //  Copyright © 2015 diana. All rights reserved.
 //
 
+#include "HTRFUtil.h"
+
 #include <iostream>
 #include <unordered_map>
 #include <vector>
@@ -13,45 +15,13 @@
 
 using namespace std;
 
-typedef vector<float> hrir;
-typedef unordered_map<float,hrir> table;
-
-
-class HTRFMap
-{
-private:
-     table hrirByAzimuth;
-public:
-    
-    void insert(float azimuth, std::vector<float> && hrir)
-    {
-        hrirByAzimuth.insert(make_pair(azimuth,forward<vector<float>>(hrir))); // not sure if forward is required here.
-    }
-    const hrir & operator[](float index)
-    {
-        auto it = hrirByAzimuth.find(index);
-        if (it != hrirByAzimuth.end())
-        {
-            return it->second;
-        }
-        else
-        {
-            return move(hrir());
-        }
-    }
-    size_t size()
-    {
-        return hrirByAzimuth.size();
-    }
-};
-
 
 class HoldingHTRF {
-    HTRFMap theMap;
+    HTRFMapAz theMap;
 public:
-    void loadHRTF(HTRFMap && _theMap)
+    void loadHRTF(HTRFMapAz && _theMap)
     {
-        theMap = forward<HTRFMap>(_theMap); // not sure if forward is required here.
+        theMap = forward<HTRFMapAz>(_theMap); // not sure if forward is required here.
     }
     size_t size()
     {
@@ -62,7 +32,7 @@ public:
 
 int main(int argc, const char * argv[])
 {
-    HTRFMap h;
+    HTRFMapAz h;
     hrir v{0.33,0.12345,0.25};
     cout << "Size of v is " << v.size() << endl;
     cout << "v[1] = " << v[1] << endl;
