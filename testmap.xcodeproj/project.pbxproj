@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF559BB81C1086020014231D /* HTRFUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF559BB71C1086020014231D /* HTRFUtil.cpp */; };
 		AFC2B9C41C0E629D006AA773 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AFC2B9C31C0E629D006AA773 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		AF559BB61C10598B0014231D /* HTRFUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTRFUtil.h; sourceTree = "<group>"; };
+		AF559BB71C1086020014231D /* HTRFUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HTRFUtil.cpp; sourceTree = "<group>"; };
 		AFC2B9C01C0E629D006AA773 /* testmap */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testmap; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFC2B9C31C0E629D006AA773 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -60,6 +62,7 @@
 			children = (
 				AFC2B9C31C0E629D006AA773 /* main.cpp */,
 				AF559BB61C10598B0014231D /* HTRFUtil.h */,
+				AF559BB71C1086020014231D /* HTRFUtil.cpp */,
 			);
 			path = testmap;
 			sourceTree = "<group>";
@@ -121,6 +124,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFC2B9C41C0E629D006AA773 /* main.cpp in Sources */,
+				AF559BB81C1086020014231D /* HTRFUtil.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
