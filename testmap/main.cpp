@@ -44,27 +44,18 @@ public:
 
 int main(int argc, const char * argv[])
 {
+    cout << "*****************************************" << endl;
+    
     HTRFMapAz hAz;
     hrir v{0.33,0.12345,0.25};
     cout << "** HTRFMapAz hAz;" << endl;
     cout << "** hrir v{0.33,0.12345,0.25};" << endl;
     cout << "Size of v is " << v.size() << endl;
-    cout << "querying v[1]: " << v[1] << endl;
     
     hAz.insert(3.25, move(v));
     cout << "** hAz.insert(3.25, move(v));"<<endl;
     cout << "Size of HRTF map is "  << hAz.size() << endl;
-    cout << "Size of hrir is " << hAz[3.25].size() << endl;
     cout << "Size of v is now " << v.size() << endl;
-    
-    hrir v2 = hAz[3.25];
-    cout << "** hrir v2 = hAz[3.25];"<<endl;
-    cout << "size of hrir[3.25] is " << v2.size() << endl;
-    cout << "querying hrir[3.25][1]: " << v2[1] << endl;
-    
-    hrir v3 = hAz[3.26];
-    cout << "** hrir v3 = hAz[3.26];"<<endl;
-    cout << "size of hrir[3.26] is " << v3.size() << endl;
     
     HoldingHTRFAz container;
     container.loadHRTF(move(hAz));
