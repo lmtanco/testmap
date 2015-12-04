@@ -91,36 +91,4 @@ public:
 };
 
 
-typedef std::unordered_map<float,hrir> tableAz;
-
-
-class HTRFMapAz
-{
-private:
-    tableAz hrirByAzimuth;
-public:
-    
-    void insert(float azimuth, std::vector<float> && hrir)
-    {
-        hrirByAzimuth.emplace(azimuth,std::forward<std::vector<float>>(hrir));
-    }
-    const hrir & operator[](float index)
-    {
-        auto it = hrirByAzimuth.find(index);
-        if (it != hrirByAzimuth.end())
-        {
-            return it->second; // return a const reference so the caller sees changes.
-        }
-        else
-        {
-            return std::move(hrir()); // returning an empty hrir.
-        }
-    }
-    size_t size()
-    {
-        return hrirByAzimuth.size();
-    }
-};
-
-
 #endif /* HTRFUtil_h */
