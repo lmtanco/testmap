@@ -82,7 +82,7 @@ int main(int argc, const char * argv[])
     cout << " size of v6 is: v6.size(): " << v6.size() << endl;
     
     const hrir& v7 = h(79,2);
-    cout << "** const hrir& v7 = h(79,2 );" << endl;
+    cout << "** const hrir& v7 = h(79,2);" << endl;
     cout << " size of v7 is: v7.size(): " << v7.size() << endl;
     
     return 0;
