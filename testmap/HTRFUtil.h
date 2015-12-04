@@ -58,13 +58,14 @@ inline bool essentiallyEqual(float a, float b, float epsilon=defaultepsilon)
 
 struct orientation
 {
-    float azimuth;
-    float elevation;
-    orientation(float _azimuth, float _elevation):azimuth{_azimuth}, elevation{_elevation}{}
-    orientation():orientation{0.0f,0.0f}{}
+    int azimuth;
+    int elevation;
+    orientation(int _azimuth, int _elevation):azimuth{_azimuth}, elevation{_elevation}{}
+    orientation():orientation{0,0}{}
     bool operator==(const orientation& oth) const
     {
-        return essentiallyEqual(this->azimuth, oth.azimuth) && essentiallyEqual(this->elevation, oth.elevation);
+        //return essentiallyEqual(this->azimuth, oth.azimuth) && essentiallyEqual(this->elevation, oth.elevation);
+        return ((this->azimuth == oth.azimuth) && (this->elevation == oth.elevation));
     }
 };
 
@@ -88,12 +89,24 @@ typedef std::unordered_map<orientation,hrir> table;
 class HTRFMap
 {
 private:
+    int azimuthStep;
+    int elevationStep;
     table t;
     hrir empty;
 public:
+    HTRFMap(int _azimuthStep, int _elevationStep):
+        azimuthStep{_azimuthStep},
+        elevationStep{_elevationStep}
+    {}
+    
+    HTRFMap() : HTRFMap{15,15}
+    {}
+    
     void insert(float azimuth, float elevation, std::vector<float> && hrir)
     {
-        t.emplace(orientation(azimuth,elevation), std::forward<std::vector<float>>(hrir));
+        int iAzimuth = round(azimuth/azimuthStep) * azimuthStep;
+        int iElevation = round(elevation/elevationStep) * elevationStep;
+        t.emplace(orientation(iAzimuth,iElevation), std::forward<std::vector<float>>(hrir));
     }
     
     size_t size()
@@ -103,7 +116,9 @@ public:
     
     const hrir& operator()(float azimuth, float elevation)
     {
-        auto it = t.find(orientation(azimuth,elevation));
+        int iAzimuth = round(azimuth/azimuthStep) * azimuthStep;
+        int iElevation = round(elevation/elevationStep) * elevationStep;
+        auto it = t.find(orientation(iAzimuth,iElevation));
         if (it != t.end())
         {
             return it->second; // return a const reference so the caller sees changes.
