@@ -1,4 +1,4 @@
-//
+ //
 //  main.cpp
 //  testmap
 //
@@ -29,18 +29,6 @@ public:
     }
 };
 
-class HoldingHTRF { // This would be the core.
-    HTRFMap theMap;
-public:
-    void loadHRTF(HTRFMap && _theMap)
-    {
-        theMap = forward<HTRFMap>(_theMap);
-    }
-    size_t size()
-    {
-        return theMap.size();
-    }
-};
 
 int main(int argc, const char * argv[])
 {
