@@ -41,10 +41,10 @@ namespace std
     };
 }
 
-typedef std::vector<float> hrir;
+typedef std::pair<std::vector<float>,std::vector<float>> hrir;
 typedef std::unordered_map<orientation,hrir> table;
 
-class HTRFMap
+class HTRF
 {
     
 private:
@@ -53,19 +53,19 @@ private:
     table t;
     hrir empty;
 public:
-    HTRFMap(int _azimuthStep, int _elevationStep):
+    HTRF(int _azimuthStep, int _elevationStep):
         azimuthStep{_azimuthStep},
         elevationStep{_elevationStep}
     {}
     
-    HTRFMap() : HTRFMap{15,15}
+    HTRF() : HTRF{15,15} // default constructor takes 15 as quant. step. 
     {}
     
-    void insert(float azimuth, float elevation, std::vector<float> && hrir)
+    void insert(float azimuth, float elevation, hrir && newhrir)
     {
         int iAzimuth = round(azimuth/azimuthStep) * azimuthStep;
         int iElevation = round(elevation/elevationStep) * elevationStep;
-        t.emplace(orientation(iAzimuth,iElevation), std::forward<std::vector<float>>(hrir));
+        t.emplace(orientation(iAzimuth,iElevation), std::forward<hrir>(newhrir));
     }
     
     size_t size()
